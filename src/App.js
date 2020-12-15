@@ -45,7 +45,6 @@ export default function App() {
   if (!show) {
     return <h2>Fetching data...</h2>;
   }
-
   return (
     <div className="App">
       <img className="poster-img" src={show.image.original} alt={show.name} />
