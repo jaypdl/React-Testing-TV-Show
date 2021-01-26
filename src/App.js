@@ -15,19 +15,33 @@ export default function App() {
   const episodes = seasons[selectedSeason] || [];
 
   useEffect(() => {
-    fetchShow()
-      .then(res => {
+    // fetchShow()
+    //   .then(res => {
+    //     setShow(res.data);
+    //     setSeasons(formatSeasons(res.data._embedded.episodes));
+    //   })
+    //   .catch(err => {
+    //     console.log('Error happened: ', err)
+    //   })
+
+    const getData = async () => {
+      try {
+        const res = await fetchShow()
         setShow(res.data);
         setSeasons(formatSeasons(res.data._embedded.episodes));
-      });
+      } catch(err) {
+        console.log('error from try block: ', err)
+      }
+    }
+    getData();
   }, []);
 
   const handleSelect = e => {
     setSelectedSeason(e.value);
   };
-  console.log('seasons: ',seasons)
-  console.log('selected: ',selectedSeason)
-  console.log('episodes: ', episodes)
+  // console.log('seasons: ',seasons)
+  // console.log('selected: ',selectedSeason)
+  // console.log('episodes: ', episodes)
   if (!show) {
     return <h2>Fetching data...</h2>;
   }
