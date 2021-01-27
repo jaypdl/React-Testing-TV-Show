@@ -12,28 +12,28 @@ export default function App() {
   const [show, setShow] = useState(null);
   const [seasons, setSeasons] = useState([]);
   const [selectedSeason, setSelectedSeason] = useState("");
-  const episodes = seasons[selectedSeason] || [];
+  const episodes = seasons[selectedSeason] || []; // this is known as derived state - derived from props or state (this is dependant on both seasons and selected seasons)
 
   useEffect(() => {
-    // fetchShow()
-    //   .then(res => {
-    //     setShow(res.data);
-    //     setSeasons(formatSeasons(res.data._embedded.episodes));
-    //   })
-    //   .catch(err => {
-    //     console.log('Error happened: ', err)
-    //   })
+    fetchShow()
+      .then(res => {
+        setShow(res);
+        setSeasons(formatSeasons(res._embedded.episodes));
+      })
+      .catch(err => {
+        console.log('Error happened: ', err)
+      })
 
-    const getData = async () => {
-      try {
-        const res = await fetchShow()
-        setShow(res.data);
-        setSeasons(formatSeasons(res.data._embedded.episodes));
-      } catch(err) {
-        console.log('error from try block: ', err)
-      }
-    }
-    getData();
+    // const getData = async () => {
+    //   try {
+    //     const res = await fetchShow()
+    //     setShow(res);
+    //     setSeasons(formatSeasons(res._embedded.episodes));
+    //   } catch(err) {
+    //     console.log('error from try block: ', err)
+    //   }
+    // }
+    // getData();
   }, []);
 
   const handleSelect = e => {
